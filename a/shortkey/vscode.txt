@@ -1,0 +1,28 @@
+
+
+
+auto rename tag
+better comment
+blockman - hightlight
+bookmarks
+bootstrap 5 snippets
+bracket pair color
+bracket pair colorization toggler
+css peek
+draw.io integration
+php namespace resolver
+phpfmt php formatter
+rainbow tags
+html css support
+laravel artisan 
+lravel blade snippet
+laravel snippets
+codesnap
+CSS Snippets
+HTML CSS Support
+indent-rainbow
+IntelliSense for CSS class names in HTML
+JavaScript (ES6) code snippets
+Live Preview
+Live Server
+open in browser
