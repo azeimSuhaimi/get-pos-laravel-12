@@ -15,10 +15,27 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('phone')->nullable();
+            $table->string('picture')->default('empty.png');
+            $table->integer('role')->default(2);
+            $table->boolean('status')->default(true);
+            $table->string('password')->nullable();
+            $table->string('last_login')->nullable();
+            $table->string('date_register')->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('key')->nullable('');
+            $table->string('github_id')->nullable();
+            $table->text('github_token')->nullable();
+            $table->string('github_refresh_token')->nullable();
+            $table->string('google_id')->nullable();
+            $table->text('google_token')->nullable();
+            $table->string('google_refresh_token')->nullable();
+            $table->string('linkedin_id')->nullable();
+            $table->text('linkedin_token')->nullable();
+            $table->string('linkedin_refresh_token')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

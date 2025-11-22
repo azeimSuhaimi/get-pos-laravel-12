@@ -12,4 +12,5 @@ php artisan make:controller menuController --resource --model=users
 php artisan make:controller [ControllerName] [--option]
 
 
-php artisan migrate --model=activity_log
+
+php artisan make:model activity_log -m
