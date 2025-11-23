@@ -9,6 +9,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\WasteController;
 
 use App\Models\User;
@@ -80,6 +81,23 @@ Route::controller(EmployeeController::class)->group(function () {
     Route::post('/employee-reset-password','resetPassword')->name('employee.reset.password')->middleware(['auth','is_admin']);
 
 }); //end group employee
+
+Route::controller(ItemController::class)->group(function () {
+   
+    Route::get('/item','index')->name('item')->middleware(['auth']);
+
+    Route::get('/item-create','create')->name('item.create.page')->middleware(['auth','verified','is_admin']);
+    Route::post('/item-create','store')->name('item.create.store')->middleware(['auth','verified','is_admin']);
+    
+    Route::get('/item-view','view')->name('item.view')->middleware(['auth']);
+    Route::post('/item-update','update')->name('item.update.')->middleware(['auth','is_admin']);
+    Route::post('/item-remove-image','removeImage')->name('item.remove.image')->middleware(['auth','is_admin']);
+
+    Route::post('/item-status','status')->name('item.status')->middleware(['auth','is_admin']);
+    Route::post('/item-status-quick','statusQuick')->name('item.status.quick')->middleware(['auth','is_admin']);
+
+
+}); //end group item
 
 
 

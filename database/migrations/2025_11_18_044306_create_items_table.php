@@ -13,17 +13,17 @@ return new class extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
+            $table->string('barcode');
             $table->string('shortcode');
             $table->string('item');
             $table->string('picture')->default('empty.png');
             $table->text('description')->nullable();
             $table->integer('quantity')->default(0);
-            $table->string('category');
+            $table->boolean('category');
             $table->double('cost');
             $table->double('price');
             $table->integer('discount')->default(0);
-            $table->boolean('status')->default(true);
-            $table->string('quickorder_status')->default('true');
+            $table->boolean('quickorder_status')->default(true);
             $table->softDeletes();
             $table->timestamps();
         });

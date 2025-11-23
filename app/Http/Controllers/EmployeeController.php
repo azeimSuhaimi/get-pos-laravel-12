@@ -20,7 +20,7 @@ class EmployeeController extends Controller
     // list all employee 
     public function index()
     {
-        $employee = employee::withTrashed()->get(); // get all employee 
+        $employee = employee::withTrashed()->orderBy('created_at','desc')->get(); // get all employee 
 
         return view('employee.index',['employee' => $employee]);
     }//end method all employee
