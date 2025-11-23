@@ -321,11 +321,17 @@
                         <input type="hidden" name="employee_id" value="{{$employee->id}}">
                     </form>
 
+                    <form id="reset_password" onsubmit="confirmAndSubmit(this)" action="{{route('employee.reset.password')}}" method="post">
+                        @csrf
+                        <input type="hidden" name="id" value="{{$user->id}}">
+                    </form>
+
                         <div class="form-group mb-3 text-center row mt-3 pt-1">
                             <div class="col-12">
                                 <button form="submit_profile" class="btn btn-info w-100 waves-effect waves-light" type="submit">Submit</button>
                                 <button form="remove_image" type="submit"  class="btn btn-danger w-100 waves-effect waves-light mt-2">Remove Image</button>
-                                <button form="employee_status" type="submit"  class="btn btn-info w-100 waves-effect waves-light mt-2">status</button>
+                                <button form="employee_status" type="submit"  class="btn btn-info w-100 waves-effect waves-light mt-2">Status</button>
+                                <button form="reset_password" type="submit"  class="btn btn-info w-100 waves-effect waves-light mt-2">Reset Password</button>
                             </div>
                         </div>
 

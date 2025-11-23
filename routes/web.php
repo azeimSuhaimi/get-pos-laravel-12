@@ -9,7 +9,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmployeeController;
-use App\Http\Controllers\wasteController;
+use App\Http\Controllers\WasteController;
 
 use App\Models\User;
 
@@ -77,9 +77,11 @@ Route::controller(EmployeeController::class)->group(function () {
     Route::post('/employee-remove-image','removeImage')->name('employee.remove.image')->middleware(['auth','is_admin']);
 
     Route::post('/employee-status','status')->name('employee.status')->middleware(['auth','is_admin']);
-
+    Route::post('/employee-reset-password','resetPassword')->name('employee.reset.password')->middleware(['auth','is_admin']);
 
 }); //end group employee
+
+
 
 
 

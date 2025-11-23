@@ -205,7 +205,7 @@ class EmployeeController extends Controller
             $user->save();
             $user->delete();
             
-            activity_log::addActivity('change status',' change status employee to resign');
+            activity_log::addActivity(' change status employee to resign');
             return redirect(route('employee.view').'?id='.$request->input('id'))->with('success','employee is resign');
         }
         else
@@ -218,11 +218,29 @@ class EmployeeController extends Controller
             $user->save();
             $user->restore();
 
-            activity_log::addActivity('change status',' change status employee to active back');
+            activity_log::addActivity(' change status employee to active back');
             return redirect(route('employee.view').'?id='.$request->input('id'))->with('success','employee is active back');
         }
 
         return back();
+    }//end method
+        
+    public function resetPassword(Request $request)
+    {
+        $validated = $request->validate([
+            'id' => 'required',
+        ]);
+
+        $users = user::find($validated['id']);
+
+        $pass = Hash::make($users->email);
+
+        $users->password = $pass;
+        $users->save();
+
+        activity_log::addActivity(' reset password employee '.$users->name);
+        return back()->with('success',' password is reset to email now');
+        
     }//end method
 
 }//end class
