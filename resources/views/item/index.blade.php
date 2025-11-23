@@ -30,19 +30,19 @@
             <div class="card-body">
 
                 <h4 class="card-title">Items List</h4>
-                <p class="card-title-desc"></code>.
+                <p class="card-title-desc">
                 </p>
 
                 <a href="{{route('item.create.page')}}" class="btn btn-primary ">Create</a>
 
                 <table id="datatable" class="table text-center table-bordered dt-responsive nowrap mt-2" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>
-                    <tr>
-                        <th>Short Code</th>
-                        <th>Items</th>
-                        <th>Category</th>
-                        <th>#</th>
-                    </tr>
+                        <tr>
+                            <th>Short Code</th>
+                            <th>Items</th>
+                            <th>Category</th>
+                            <th>#</th>
+                        </tr>
                     </thead>
 
 
@@ -59,6 +59,53 @@
 
                     </tbody>
                 </table>
+
+                
+
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <h4 class="card-title">D.O List Inventory</h4>
+                <p class="card-title-desc">
+                </p>
+
+                <a href="{{route('do.create.page')}}" class="btn btn-primary ">Create</a>
+
+                <table id="datatable" class="table text-center table-bordered dt-responsive nowrap mt-2" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>GRN No</th>
+                            <th>Date Receive</th>
+                            <th>D.O No</th>
+                            <th>Supplier</th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+
+
+                    <tbody>
+                    @foreach ( $do as $row)
+                        
+                        <tr>
+                            <td>{{$row->grn_no}}</td>
+                            <td>{{$row->date_receive}}</td>
+                            <td>{{$row->do_number}}</td>
+                            <td>{{$row->supplier}}</td>
+                            <td><a href="{{route('do.view')}}?id={{$row->id}}" class="btn btn-info ">View</a></td>
+                        </tr>
+                    @endforeach
+
+                    </tbody>
+                </table>
+
+                
 
             </div>
         </div>

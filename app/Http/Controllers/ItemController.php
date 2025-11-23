@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\File;
 
 use App\Models\activity_log;
 use App\Models\item;
+use App\Models\stock_in_header;
+use App\Models\stock_in_detail;
 
 class ItemController extends Controller
 {
@@ -17,8 +19,9 @@ class ItemController extends Controller
     public function index()
     {
         $items = item::withTrashed()->orderBy('created_at','desc')->get();
+        $do = stock_in_header::withTrashed()->orderBy('created_at','desc')->get();
 
-        return view('item.index',['items' => $items]);
+        return view('item.index',['items' => $items,'do' => $do]);
     }//end method
 
     // create item page
@@ -231,4 +234,107 @@ class ItemController extends Controller
 
         return back();
     }//end method status
+
+    public function createDo()
+    {
+        return view('item.create-do');
+    }//end method create
+
+    public function storeDo(Request $request)
+    {
+
+        // validated new items data 
+        $validated = $request->validate([
+            
+            'do_number' => 'required|unique:stock_in_headers,do_number',
+            'grn_no' => 'required|unique:stock_in_headers,grn_no',
+            'date_receive' => 'required',
+            'supplier' => 'required',
+            'receive_by' => 'required',
+            'remark' => 'required|string',
+            
+        ]);
+
+        
+        //store data to database 
+        $stock = new stock_in_header;
+        $stock->do_number = $validated['do_number'];
+        $stock->grn_no = $validated['grn_no'];
+        $stock->date_receive = $validated['date_receive'];
+        $stock->supplier = $validated['supplier'];
+        $stock->receive_by = $validated['receive_by'];
+        $stock->remark = $validated['remark'];
+        $stock->save();
+
+        activity_log::addActivity(' add new item do number '.$validated['do_number'].'into system');
+
+        return back()->with('success','add new item, success make new do number '.$validated['do_number']);
+        
+    }//end method store
+
+    public function viewDo(Request $request)
+    {
+        $validated = $request->validate([
+            'id' => 'required',
+        ]);
+
+        $do = stock_in_header::withTrashed()->find($request->input('id'));// id items input
+        $do_detail = stock_in_detail::withTrashed()->where('item_id',$request->input('id'))->get();// id items input
+
+        return view('item.view-do',['do'=>$do, 'do_detail'=>$do_detail]);
+    }//end method view 
+
+    public function storeDoItem(Request $request)
+    {
+
+        // validated new items data 
+        $validated = $request->validate([
+            'id' => 'required',
+            'code' => 'required',
+            'quantity' => 'required|integer',
+            'cost' => 'required|numeric',
+            'remark' => 'required|string',
+            
+        ]);
+
+        $item = item::withTrashed()->where('barcode',$validated['code'])->orWhere('shortcode',$validated['code'])->orWhere('item',$validated['code'])->first();
+
+        if(!$item)
+        {
+            return back()->with('error',$validated['code'].' not exist');
+        }
+
+        //store data to database 
+        $stock = new stock_in_detail;
+        $stock->item = $item->item;
+        $stock->barcode =  $item->barcode;
+        $stock->shortcode =  $item->shortcode;
+        $stock->quantity = $validated['quantity'];
+        $stock->cost = $validated['cost'];
+        $stock->total = $validated['cost'] * $validated['quantity'];
+        $stock->remark = $validated['remark'];
+        $stock->stock_in_id = $validated['id'];
+        $stock->item_id = $item->id;
+        $stock->save();
+
+        if($item->price < $validated['cost'])
+        {
+            $item->cost = $validated['cost'];
+            $item->price = $validated['cost'] * 1.30;
+        }
+
+        if($item->price > $validated['cost'])
+        {
+            $item->cost = $validated['cost'];
+        }
+
+        $item->quantity += $validated['quantity'];
+        $item->save();
+
+        activity_log::addActivity(' add new stock in item  '.$validated['code'].'into system');
+
+        return back()->with('success','add new item stockin '.$validated['code']);
+        
+    }//end method store
+
 }//end class

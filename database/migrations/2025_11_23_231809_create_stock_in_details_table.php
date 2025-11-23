@@ -13,6 +13,17 @@ return new class extends Migration
     {
         Schema::create('stock_in_details', function (Blueprint $table) {
             $table->id();
+            $table->string('barcode');
+            $table->string('shortcode');
+            $table->string('item');
+            $table->string('quantity');
+            $table->double('cost');
+            $table->double('total');
+            $table->text('remark')->nullable();
+            $table->unsignedBigInteger('stock_in_id');
+            $table->foreign('stock_in_id')->references('id')->on('stock_in_headers');
+            $table->unsignedBigInteger('item_id');
+            $table->foreign('item_id')->references('id')->on('items');
             $table->timestamps();
         });
     }

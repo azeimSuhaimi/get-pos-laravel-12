@@ -96,6 +96,12 @@ Route::controller(ItemController::class)->group(function () {
     Route::post('/item-status','status')->name('item.status')->middleware(['auth','is_admin']);
     Route::post('/item-status-quick','statusQuick')->name('item.status.quick')->middleware(['auth','is_admin']);
 
+    Route::get('/do-create','createDo')->name('do.create.page')->middleware(['auth','verified','is_admin']);
+    Route::post('/do-create','storeDo')->name('do.create.store')->middleware(['auth','verified','is_admin']);
+
+    Route::get('/do-view','viewDo')->name('do.view')->middleware(['auth','verified','is_admin']);
+    Route::post('/do-create-item','storeDoItem')->name('do.create.item')->middleware(['auth','verified','is_admin']);
+
 
 }); //end group item
 

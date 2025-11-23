@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('stock_in_headers', function (Blueprint $table) {
             $table->id();
+            $table->string('grn_no');
+            $table->string('date_receive');
+            $table->string('do_number');
+            $table->string('supplier');
+            $table->string('receive_by');
+            $table->string('remark');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

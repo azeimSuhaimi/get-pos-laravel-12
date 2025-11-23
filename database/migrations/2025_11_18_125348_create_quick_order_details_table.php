@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('barcode');
             $table->string('shortcode');
-            $table->string('name');
+            $table->string('item');
             $table->string('quantity');
             $table->double('price');
             $table->double('cost');
