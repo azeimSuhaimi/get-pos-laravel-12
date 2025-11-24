@@ -20,6 +20,11 @@ class ItemController extends Controller
     {
         $items = item::withTrashed()->orderBy('created_at','desc')->get();
         $do = stock_in_header::withTrashed()->orderBy('created_at','desc')->get();
+        //$das =stock_in_header::withTrashed()->find(1)->stock_in_details;
+        //$das = stock_in_detail::withTrashed()->find(1)->stock_in_headers->do_number;
+//echo $da->do_number;
+
+//dd($das);
 
         return view('item.index',['items' => $items,'do' => $do]);
     }//end method

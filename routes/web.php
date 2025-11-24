@@ -105,6 +105,17 @@ Route::controller(ItemController::class)->group(function () {
 
 }); //end group item
 
+Route::controller(WasteController::class)->group(function () {
+   
+    Route::get('/waste','index')->name('waste')->middleware(['auth','is_admin']);
+
+    Route::get('/waste-create','create')->name('waste.create.page')->middleware(['auth','verified','is_admin']);
+    Route::post('/waste-create','store')->name('waste.create.store')->middleware(['auth','verified','is_admin']);
+    
+    Route::get('/waste-view','view')->name('waste.view')->middleware(['auth','is_admin']);
+    
+}); //end group employee
+
 
 
 

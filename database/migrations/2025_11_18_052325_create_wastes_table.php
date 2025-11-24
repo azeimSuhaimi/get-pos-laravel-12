@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('item');
             $table->text('description')->nullable();
             $table->integer('quantity')->default(0);
-            $table->string('category');
+            $table->boolean('category');
             $table->double('cost');
             $table->double('price');
             $table->text('reason');

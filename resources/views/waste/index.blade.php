@@ -9,12 +9,12 @@
 <div class="row">
     <div class="col-12">
         <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-            <h4 class="mb-sm-0">Employee</h4>
+            <h4 class="mb-sm-0">Waste</h4>
 
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
                     <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Dashboard</a></li>
-                    <li class="breadcrumb-item active">Employee</li>
+                    <li class="breadcrumb-item active">Waste</li>
                 </ol>
             </div>
 
@@ -29,31 +29,35 @@
         <div class="card">
             <div class="card-body">
 
-                <h4 class="card-title">Employeee List</h4>
+                <h4 class="card-title">Waste List</h4>
                 <p class="card-title-desc">.
                 </p>
 
-                <a href="{{route('employee.create.page')}}" class="btn btn-primary ">Create</a>
+                <a href="{{route('waste.create.page')}}" class="btn btn-primary ">Create</a>
 
                 <table id="datatable" class="table text-center table-bordered dt-responsive nowrap mt-2" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>
                     <tr>
-                        <th>Work Id</th>
-                        <th>I.C</th>
-                        <th>Position</th>
+                        <th>Shortcode </th>
+                        <th>Item</th>
+                        <th>Quantity</th>
+                        <th>Cost</th>
+                        <th>created_at</th>
                         <th>#</th>
                     </tr>
                     </thead>
 
 
                     <tbody>
-                    @foreach ( $employee as $row)
+                    @foreach ( $waste as $row)
                         
                         <tr>
-                            <td>{{$row->work_id}}</td>
-                            <td>{{$row->ic}}</td>
-                            <td>{{$row->position}}</td>
-                            <td><a href="{{route('employee.view')}}?id={{$row->user_id}}" class="btn btn-info ">View</a></td>
+                            <td>{{$row->shortcode}}</td>
+                            <td>{{$row->item}}</td>
+                            <td>{{$row->quantity}}</td>
+                            <td>{{$row->cost}}</td>
+                            <td>{{$row->created_at}}</td>
+                            <td><a href="{{route('waste.view')}}?id={{$row->id}}" class="btn btn-info ">View</a></td>
                         </tr>
                     @endforeach
 

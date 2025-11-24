@@ -21,9 +21,10 @@ return new class extends Migration
             $table->double('total');
             $table->text('remark')->nullable();
             $table->unsignedBigInteger('stock_in_id');
-            $table->foreign('stock_in_id')->references('id')->on('stock_in_headers');
+            $table->foreign('stock_in_id')->references('id')->on('stock_in_headers')->onDelete('cascade');
             $table->unsignedBigInteger('item_id');
-            $table->foreign('item_id')->references('id')->on('items');
+            $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
