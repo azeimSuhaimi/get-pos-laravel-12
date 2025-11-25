@@ -11,7 +11,7 @@
 
                 <div class="text-center mt-4">
                     <div class="mb-3">
-                        <a href="{{route('auth')}}" class="auth-logo">
+                        <a href="{{route('login')}}" class="auth-logo">
                             <img src="{{asset('assets/images/logo-dark.png')}}" height="30" class="logo-dark mx-auto" alt="">
                             <img src="{{asset('assets/images/logo-light.png')}}" height="30" class="logo-light mx-auto" alt="">
                         </a>
@@ -87,7 +87,7 @@
                                 <a href="{{route('auth.forgot.password')}}" class="text-muted"><i class="mdi mdi-lock"></i> Forgot your password?</a>
                             </div>
                             <div class="col-sm-5 mt-3">
-                                <!--  <a href="auth-register.html" class="text-muted"><i class="mdi mdi-account-circle"></i> Create an account</a>-->
+                                <a href="{{route('customer.create.by.guest')}}" class="text-muted"><i class="mdi mdi-account-circle"></i> Create Customer</a>
                             </div>
                         </div>
                 </div>

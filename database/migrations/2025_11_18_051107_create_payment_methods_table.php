@@ -17,8 +17,8 @@ return new class extends Migration
             $table->double('tender')->nullable();
             $table->string('reference_no')->nullable();
             $table->boolean('status');
-            $table->unsignedBigInteger('invoice_id');
-            $table->foreign('invoice_id')->references('invoice_id')->on('invoices');
+            $table->unsignedBigInteger('inv_id');
+            $table->foreign('inv_id')->references('id')->on('invoices');
             $table->softDeletes();
             $table->timestamps();
         });

@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->boolean('status_read')->default(false);
             $table->boolean('status')->default(false);
-            $table->unsignedBigInteger('invoice_id');
-            $table->foreign('invoice_id')->references('invoice_id')->on('invoices');
+            $table->unsignedBigInteger('inv_id');
+            $table->foreign('inv_id')->references('id')->on('invoices');
             $table->softDeletes();
             $table->timestamps();
         });

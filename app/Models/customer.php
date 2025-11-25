@@ -14,13 +14,7 @@ class customer extends Model
     protected $keyType = 'string';
     public $timestamps = true;
 
-        public static function showAll()
-    {
-        $customer = customer::all()->orderBy('created_at', 'desc');
 
-        return $customer;
-        
-    }//end method show all
 
     public static function showById($id)
     {
@@ -33,11 +27,10 @@ class customer extends Model
     {
         //store data to database 
         $customer = new customer;
-        $customer->name = $data->name;
-        $customer->address = $data->address;
-        $customer->phone = $data->phone;
-        $customer->email = $data->email;
-        $customer->ic = $data->ic;
+        $customer->name = $data['name'];
+        $customer->address = $data['address'];
+        $customer->phone = $data['phone'];
+        $customer->email = $data['email'];
         $customer->point = 0;
         $customer->save();
 
@@ -46,15 +39,14 @@ class customer extends Model
 
     public static function updateCustomer($data)
     {
-        $customer = customer::find($id);
-        $customer->name = $data->name;
-        $customer->email = $data->email;
-        $customer->phone = $data->phone;
-        $customer->ic = $data->ic;
-        $customer->address = $data->address;
+        $customer = customer::find($data['id']);
+        $customer->name = $data['name'];
+        $customer->address = $data['address'];
+        $customer->phone = $data['phone'];
+        $customer->email = $data['email'];
         $customer->save();
 
-        return true;
+        return  $customer;
     }//end method
 
 }//end class

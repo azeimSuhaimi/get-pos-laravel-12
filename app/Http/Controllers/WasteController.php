@@ -39,7 +39,7 @@ class WasteController extends Controller
 
         if (!$item) 
             {
-                return back()->with('error',' item not exist in system '.$validated['shortcode']);
+                return back()->with('error',' item not exist in system '.$validated['shortcode'])->onlyInput('quantity','shortcode','remark','reason');
             }
 
             if($item->category == true)

@@ -12,12 +12,13 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\WasteController;
 use App\Http\Controllers\customerOrderController;
+use App\Http\Controllers\customerController;
 
 use App\Models\User;
 
 Route::controller(AuthController::class)->group(function () {
 
-    Route::get('/','index')->name('auth')->middleware('guest');
+    Route::get('/','index')->name('login')->middleware('guest');
     Route::post('/auth','authenticate')->name('auth.login')->middleware(['guest']);
 
     Route::get('/logout','logout')->name('auth.logout');
@@ -129,6 +130,20 @@ Route::controller(customerOrderController::class)->group(function () {
     //Route::get('/customer_order_edit','edit')->name('customer_order.edit')->middleware(['auth']);
     //Route::post('/customer_order_update','update')->name('customer_order.update')->middleware(['auth']);
     Route::post('/customer-order-remove','remove')->name('customer.order.remove')->middleware(['auth']);
+
+});
+
+Route::controller(CustomerController::class)->group(function () {
+
+    Route::get('/customer-create','create')->name('customer.create')->middleware(['auth','verified']);
+    Route::post('/customer-store','store')->name('customer.store')->middleware(['auth']);
+    Route::get('/customer-create-by-guest','createByGuest')->name('customer.create.by.guest')->middleware(['guest']);
+    Route::post('/customer-store-by-guest','storeByGuest')->name('customer.store.by.guest')->middleware(['guest']);
+    Route::get('/customer','index')->name('customer')->middleware(['auth']);
+    Route::get('/customer-view','view')->name('customer.view')->middleware(['auth']);
+    Route::post('/customer-update','update')->name('customer.update')->middleware(['auth']);
+    Route::post('/customer-enter-member','enterMember')->name('customer.enter.member')->middleware(['auth']);
+    
 
 });
 

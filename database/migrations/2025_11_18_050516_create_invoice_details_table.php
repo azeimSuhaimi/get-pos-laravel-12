@@ -22,8 +22,10 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->string('category');
             $table->text('remark')->nullable();
-            $table->unsignedBigInteger('invoice_id');
-            $table->foreign('invoice_id')->references('invoice_id')->on('invoices');
+            $table->unsignedBigInteger('inv_id');
+            $table->foreign('inv_id')->references('id')->on('invoices');
+            $table->unsignedBigInteger('cust_id')->nullable();
+            $table->foreign('cust_id')->references('id')->on('customers')->onDelete('cascade');;
             $table->softDeletes();
             $table->timestamps();
         });

@@ -32,6 +32,13 @@
                         <span>Items</span>
                     </a>
                 </li>
+                                                
+                <li>
+                    <a href="{{route('customer')}}" class=" waves-effect">
+                        <i class="ri-dashboard-line"></i>
+                        <span>Customer</span>
+                    </a>
+                </li>
                                 
                 <li>
                     <a href="{{route('customer.order')}}" class=" waves-effect">
