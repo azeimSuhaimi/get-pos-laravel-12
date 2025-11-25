@@ -31,6 +31,13 @@
         <div class="card">
             <div class="card-body">
 
+                <div class="pt-4 pb-2">
+                    <a href="{{route('employee')}}" class="btn btn-primary mb-4">BACK</a>
+                    <h5 class="card-title text-center pb-0 fs-4">EMPLOYEE DETAILS</h5>
+                    <p class="text-center small">Details employee Here</p>
+                </div>
+                
+
                 <div class="row">
                     <div class="col-xl-4">
 

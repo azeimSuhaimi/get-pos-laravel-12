@@ -9,15 +9,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class customer_order extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory;
     protected $table = 'customer_orders';
     protected $primaryKey = 'id';
     protected $keyType = 'string';
     public $timestamps = true;
 
-    public static function customerOrderAllList($id)
+    public static function customerOrderAllList()
     {
-        $customer_order = customer_order::where('user_id',$id)->orderBy('created_at', 'desc')->get();
+        $customer_order = customer_order::orderBy('created_at', 'desc')->get();
 
         return $customer_order;
     }//end method
@@ -35,14 +35,13 @@ class customer_order extends Model
 
         //store data to database 
         $customer_order = new customer_order;
-        $customer_order->name = $data->name;
-        $customer_order->email = $data->email;
-        $customer_order->phone = $data->phone;
-        $customer_order->item = $data->item;
-        $customer_order->remark = $data->remark;
+        $customer_order->name = $data['name'];
+        $customer_order->email = $data['email'];
+        $customer_order->phone = $data['phone'];
+        $customer_order->item = $data['item'];
+        $customer_order->remark = $data['remark'];
         $customer_order->date_month =  $date_month;
         $customer_order->save();
-
         return $customer_order;
     }//end method
 
@@ -53,7 +52,7 @@ class customer_order extends Model
         $customer_order->contact = true;
         $customer_order->save();
 
-        return true;
+        return $customer_order;
     }//end method
 
     public static function updatePickup($id)
@@ -64,7 +63,7 @@ class customer_order extends Model
         $customer_order->contact = true;
         $customer_order->save();
 
-        return true;
+        return $customer_order;
     }//end method
 
     public static function deleteOrder($id)

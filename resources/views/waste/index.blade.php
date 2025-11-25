@@ -29,11 +29,13 @@
         <div class="card">
             <div class="card-body">
 
-                <h4 class="card-title">Waste List</h4>
-                <p class="card-title-desc">.
-                </p>
 
-                <a href="{{route('waste.create.page')}}" class="btn btn-primary ">Create</a>
+                <div class="pt-4 pb-2">
+                    <a href="{{route('waste.create.page')}}" class="btn btn-primary ">Create</a>
+                    <h5 class="card-title text-center pb-0 fs-4"> LIST ALL WASTE</h5>
+                    <p class="text-center small">List all waste Here</p>
+                </div>
+
 
                 <table id="datatable" class="table text-center table-bordered dt-responsive nowrap mt-2" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>

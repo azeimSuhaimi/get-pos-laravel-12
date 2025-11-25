@@ -29,7 +29,12 @@
         <div class="card">
             <div class="card-body">
                 <!-- Multi Columns Form -->
-                <a href="{{route('item')}}" class="btn btn-primary ">BACK</a>
+                <div class="pt-4 pb-2">
+                    <a href="{{route('item')}}" class="btn btn-primary mb-4">BACK</a>
+                    <h5 class="card-title text-center pb-0 fs-4">CREATE NEW ITEM</h5>
+                    <p class="text-center small">Enter details item Here</p>
+                </div>
+                
 
                 <form id="priceForm" class="row g-3" method="POST" onsubmit="confirmAndSubmit(this)" action="{{route('item.create.store')}}">
         

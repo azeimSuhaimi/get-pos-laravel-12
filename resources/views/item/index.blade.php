@@ -29,9 +29,10 @@
         <div class="card">
             <div class="card-body">
 
-                <h4 class="card-title">Items List</h4>
-                <p class="card-title-desc">
-                </p>
+                <div class="pt-4 pb-2">
+                    <h5 class="card-title text-center pb-0 fs-4">LIST ITEMS</h5>
+                    <p class="text-center small">List all items Here</p>
+                </div>
 
                 <a href="{{route('item.create.page')}}" class="btn btn-primary ">Create</a>
 
@@ -72,11 +73,12 @@
         <div class="card">
             <div class="card-body">
 
-                <h4 class="card-title">D.O List Inventory</h4>
-                <p class="card-title-desc">
-                </p>
-
-                <a href="{{route('do.create.page')}}" class="btn btn-primary ">Create</a>
+                <div class="pt-4 pb-2">
+                    <a href="{{route('do.create.page')}}" class="btn btn-primary ">Create</a>
+                    <h5 class="card-title text-center pb-0 fs-4">LIST D.O</h5>
+                    <p class="text-center small">List all D.O items Here</p>
+                </div>
+                
 
                 <table id="datatable" class="table text-center table-bordered dt-responsive nowrap mt-2" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>

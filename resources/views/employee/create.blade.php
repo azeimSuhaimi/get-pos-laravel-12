@@ -29,6 +29,14 @@
         <div class="card">
             <div class="card-body">
 
+                      
+                <div class="pt-4 pb-2">
+                    <a href="{{route('employee')}}" class="btn btn-primary mb-4">BACK</a>
+                    <h5 class="card-title text-center pb-0 fs-4">Create New employee</h5>
+                    <p class="text-center small">Register new employee Here</p>
+                </div>
+
+
                 <!-- Multi Columns Form -->
                 <form class="row g-3" method="POST" onsubmit="confirmAndSubmit(this)" action="{{route('employee.create.store')}}">
 

@@ -11,6 +11,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\WasteController;
+use App\Http\Controllers\customerOrderController;
 
 use App\Models\User;
 
@@ -114,7 +115,22 @@ Route::controller(WasteController::class)->group(function () {
     
     Route::get('/waste-view','view')->name('waste.view')->middleware(['auth','is_admin']);
     
-}); //end group employee
+}); //end group waste
+
+Route::controller(customerOrderController::class)->group(function () {
+
+    
+    Route::get('/customer-order','index')->name('customer.order')->middleware(['auth']);
+    Route::get('/customer-order-create','create')->name('customer.order.create')->middleware(['auth','verified']);
+    Route::post('/customer-order-store','store')->name('customer.order.store')->middleware(['auth']);
+    Route::post('/customer-order-update-contact','updateContact')->name('customer.order.update.contact')->middleware(['auth']);
+    Route::post('/customer-order-update-status','updateStatus')->name('customer.order.update.status')->middleware(['auth']);
+    //Route::get('/customer_order_view','view')->name('customer_order.view')->middleware(['auth']);
+    //Route::get('/customer_order_edit','edit')->name('customer_order.edit')->middleware(['auth']);
+    //Route::post('/customer_order_update','update')->name('customer_order.update')->middleware(['auth']);
+    Route::post('/customer-order-remove','remove')->name('customer.order.remove')->middleware(['auth']);
+
+});
 
 
 

@@ -29,11 +29,13 @@
         <div class="card">
             <div class="card-body">
 
-                <h4 class="card-title">Employeee List</h4>
-                <p class="card-title-desc">.
-                </p>
+      
+                <div class="pt-4 pb-2">
+                    <a href="{{route('employee.create.page')}}" class="btn btn-primary ">Create</a>
+                    <h5 class="card-title text-center pb-0 fs-4">EMPLOYEE LIST</h5>
+                    <p class="text-center small">List all employee Here</p>
+                </div>
 
-                <a href="{{route('employee.create.page')}}" class="btn btn-primary ">Create</a>
 
                 <table id="datatable" class="table text-center table-bordered dt-responsive nowrap mt-2" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>
