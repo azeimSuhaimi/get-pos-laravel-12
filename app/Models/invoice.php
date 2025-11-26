@@ -15,7 +15,7 @@ class invoice extends Model
     protected $keyType = 'string';
     public $timestamps = true;
 
-        public function invoice_detail(): HasMany
+    public function invoice_detail(): HasMany
     {
         return $this->hasMany(invoice_detail::class,'inv_id');
     }

@@ -13,6 +13,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\WasteController;
 use App\Http\Controllers\customerOrderController;
 use App\Http\Controllers\customerController;
+use App\Http\Controllers\ExpenseController;
 
 use App\Models\User;
 
@@ -145,6 +146,19 @@ Route::controller(CustomerController::class)->group(function () {
     Route::post('/customer-enter-member','enterMember')->name('customer.enter.member')->middleware(['auth']);
     
 
+});
+
+Route::controller(ExpenseController::class)->group(function () {
+
+    
+    Route::get('/expense_create','create')->name('expense.create')->middleware(['auth','verified']);
+    Route::post('/expense_store','store')->name('expense.store')->middleware(['auth']);
+    Route::get('/expense','index')->name('expense')->middleware(['auth']);
+    Route::get('/expense_view','view')->name('expense.view')->middleware(['auth']);
+    Route::get('/expense_edit','edit')->name('expense.edit')->middleware(['auth']);
+    Route::post('/expense_update','update')->name('expense.update')->middleware(['auth']);
+    Route::post('/expense_remove','remove')->name('expense.remove')->middleware(['auth']);
+    
 });
 
 

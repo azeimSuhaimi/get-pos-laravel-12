@@ -53,6 +53,13 @@
                         <span>Waste</span>
                     </a>
                 </li>
+                
+                <li>
+                    <a href="{{route('expense')}}" class=" waves-effect">
+                        <i class="ri-dashboard-line"></i>
+                        <span>Expenses</span>
+                    </a>
+                </li>
 
                 <li>
                     <a href="{{route('employee')}}" class=" waves-effect">
