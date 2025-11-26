@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\RedirectResponse;
@@ -222,5 +223,24 @@ class AuthController extends Controller
     
         return redirect()->intended();
     }//end method comfirm password check
+
+    public function verificationNotice()
+    {
+        return view('auth.verify-email');
+    }//end method email varify
+
+    public function verificationVerify(EmailVerificationRequest $request)
+    {
+        $request->fulfill();
+    
+        return redirect(route('dashboard'))->with('success','Verification Email Success');
+    }//end method verification verify
+
+    public function verificationSend(Request $request)
+    {
+        $request->user()->sendEmailVerificationNotification();
+    
+        return back()->with('success', 'Verification link sent!');
+    }//end method verification.send
     
 }//end class

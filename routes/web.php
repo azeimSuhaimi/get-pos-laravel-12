@@ -42,6 +42,10 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('/confirm-password', 'comfirmPassword')->middleware('auth')->name('password.confirm');
     Route::post('/confirm-password', 'comfirmPasswordCheck')->name('password.confirm.check')->middleware(['auth', 'throttle:6,1']);
 
+    Route::get('/email/verify', 'verificationNotice')->middleware('auth')->name('verification.notice');
+    Route::get('/email/verify/{id}/{hash}', 'verificationVerify')->middleware(['auth', 'signed'])->name('verification.verify');
+    Route::post('/email/verification-notification', 'verificationSend')->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
 });// end group auth
 
 Route::controller(DashboardController::class)->group(function () {
@@ -174,7 +178,7 @@ Route::controller(ExpenseController::class)->group(function () {
 
 
 
-
+/*
 
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
@@ -192,6 +196,7 @@ Route::post('/email/verification-notification', function (Request $request) {
     return back()->with('success', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
+*/
 
 
 
