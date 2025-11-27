@@ -163,8 +163,8 @@
                                 
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
-                                    <td>{{$row->name_item}}</td>
-                                    <td>{{$row->description_item}}</td>
+                                    <td>{{$row->item}}</td>
+                                    <td>{{$row->description}}</td>
                                     <td>{{$row->point}}</td>
                                     <td>{{$row->created_at}}</td>
                                 </tr>

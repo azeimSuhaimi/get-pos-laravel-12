@@ -14,6 +14,7 @@ use App\Http\Controllers\WasteController;
 use App\Http\Controllers\customerOrderController;
 use App\Http\Controllers\customerController;
 use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\ItemRedeemController;
 
 use App\Models\User;
 
@@ -163,6 +164,22 @@ Route::controller(ExpenseController::class)->group(function () {
     Route::post('/expense_update','update')->name('expense.update')->middleware(['auth']);
     Route::post('/expense_remove','remove')->name('expense.remove')->middleware(['auth']);
     
+});
+
+
+Route::controller(ItemRedeemController::class)->group(function () {
+
+    Route::get('/item.redeem','index')->name('item.redeem')->middleware(['auth']);
+    Route::get('/item.redeem_create','create')->name('item.redeem.create')->middleware(['auth','verified']);
+    Route::post('/item.redeem_store','store')->name('item.redeem.store')->middleware(['auth']);
+    Route::get('/item.redeem_view','view')->name('item.redeem.view')->middleware(['auth']);
+    Route::post('/item.redeem_update','update')->name('item.redeem.update')->middleware(['auth']);
+    Route::post('/item.redeem_status','status')->name('item.redeem.status')->middleware(['auth']);
+    Route::post('/item.redeem_delete','delete')->name('item.redeem.delete')->middleware(['auth']);
+    Route::get('/item.redeem_customer_redeem','customer_redeem')->name('item.redeem.customer_redeem')->middleware(['auth']);
+    Route::get('/item.redeem_search_customer','search_customer')->name('item.redeem.search_customer')->middleware(['auth']);
+    Route::post('/item.redeem_redeen','redeen')->name('item.redeem.redeen')->middleware(['auth']);
+    //::post('/reset_password_employee','reset_password_employee')->name('employee.reset.password')->middleware(['auth']);
 });
 
 

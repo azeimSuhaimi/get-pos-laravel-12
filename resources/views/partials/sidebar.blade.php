@@ -53,6 +53,13 @@
                         <span>Waste</span>
                     </a>
                 </li>
+                                
+                <li>
+                    <a href="{{route('item.redeem')}}" class=" waves-effect">
+                        <i class="ri-dashboard-line"></i>
+                        <span>Item Redeem</span>
+                    </a>
+                </li>
                 
                 <li>
                     <a href="{{route('expense')}}" class=" waves-effect">
