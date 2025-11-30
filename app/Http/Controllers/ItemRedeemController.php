@@ -92,13 +92,13 @@ class ItemRedeemController extends Controller
             'id' => 'required',
         ]);
 
-        $item = item_redeen::find($request->input('id'));
+        $item = item_redeem::find($request->input('id'));
 
         $item->delete();
 
         activity_log::addActivity(' remove '.$item->item.' item redeem from list');
 
-        return redirect(route('item.redeem'));
+        return redirect(route('item.redeem'))->with('success','item is delete');
     }//end method
 
     public function status(Request $request)
@@ -107,7 +107,7 @@ class ItemRedeemController extends Controller
             'id' => 'required',
         ]);
 
-        $item = item_redeen::find($request->input('id'));
+        $item = item_redeem::find($request->input('id'));
 
         if($item->status == true)
         {
@@ -115,7 +115,7 @@ class ItemRedeemController extends Controller
             $item->save();
             
             activity_log::addActivity(' change status item redeen to deactive');
-            return redirect(route('pointredeen.edit').'?id='.$request->input('id'))->with('success','item is deactive');
+            return redirect(route('item.redeem.view').'?id='.$request->input('id'))->with('success','item is deactive');
         }
         else
         {
@@ -123,7 +123,7 @@ class ItemRedeemController extends Controller
             $item->save();
 
             activity_log::addActivity(' change status item redeen to active back');
-            return redirect(route('pointredeen.edit').'?id='.$request->input('id'))->with('success','item is active back');
+            return redirect(route('item.redeem.view').'?id='.$request->input('id'))->with('success','item is active back');
         }
 
         return back();
@@ -139,13 +139,15 @@ class ItemRedeemController extends Controller
         $customer = '';
 
         $items = item_redeem::find($request->input('id'));
+        //get all list custmer data
+        $customerList = customer::all();
 
         if($request->has('id_cust'))
         {
             $customer = customer::find($request->input('id_cust'));
         }
 
-        return view('item-redeem.customer_redeem',['request'=>$request,'items'=>$items, 'customer'=>$customer]);
+        return view('item-redeem.customer_redeem',['request'=>$request,'items'=>$items, 'customer'=>$customer,'customerList'=>$customerList]);
     }//end method
 
     public function search_customer(Request $request)

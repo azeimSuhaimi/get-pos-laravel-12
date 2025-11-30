@@ -27,11 +27,7 @@
 <div class="card mb-4">
 
     <div class="card-body">
-        <form id="search_page" class="text-start" autocomplete="off" action="{{route('item.redeem.search_customer')}}?id={{$request->input('id')}}" method="get">
-            @csrf
-            <input type="hidden" name="id" value="{{$request->input('id')}}">
-            <button class="btn btn-primary mt-3" type="submit">Search Member</button>
-        </form>
+<a href="{{route('item.redeem')}}" class="btn btn-primary mb-4">BACK</a>
 
         <div class="row d-flex justify-content-center align-items-cente">
 
@@ -107,7 +103,87 @@
 
             
             <div class="d-grid mt-2"><button form="cash" class="btn btn-primary btn-block" type="submit">Submit</button></div>
-<!-- Button to set exact amount -->
+                <!-- Button to set exact amount -->
+                        <div class="my-4 ">
+                            <p class="text-muted"></p>
+                            <!-- Large modal -->
+                            <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg">Search Member</button>
+                        </div>
+            
+                        <!--  Modal content for the above example -->
+                        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="myLargeModalLabel">List Member</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        
+                                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                Search Customer
+                            </div>
+                            <div class="card-body">
+                                <div class="row d-flex justify-content-center align-items-center">
+                                    <div class="col-md-12">
+                        
+                                        
+                                        <h5 class="card-title">All Customer</h5>
+                                        <p>List all Customer.</p>
+                            
+                                        <!-- Table with stripped rows -->
+                                        <table id="datatable" class="table table-responsive table-hover text-center table-bordered dt-responsive nowrap mt-2" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                
+                                                <th>Name</th>
+                                                <th>Phone.</th>
+                                                <th>Email</th>
+                                                <th>Point</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($customerList as $cust)
+                                            
+                                            <tr>
+                                                
+                                                <td>{{$cust->name}}</td>
+                                                <td>{{$cust->phone}}</td>
+                                                <td>{{$cust->email}}</td>
+                                                <td>{{$cust->point}}</td>
+                                                <td>
+                                                        <form action="{{route('item.redeem.customer_redeem')}}" method="get">
+                                                            <input type="hidden" name="id" value="{{$request->input('id')}}">
+                                                            <input type="hidden" name="id_cust" value="{{$cust->id}}">
+                                                            <input type="hidden" name="phone" value="{{$cust->phone}}">
+                                                            <input type="hidden" name="name" value="{{$cust->name}}">
+                                                            <input type="hidden" name="email" value="{{$cust->email}}">
+                                                            <input type="hidden" name="point" value="{{$cust->point}}">
+                                                            <button type="submit" class="btn btn-primary rounded-pill waves-effect waves-light">add</button>
+                                                        </form>
+                                                    
+
+                                                </td>
+
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                        </table>
+                                        <!-- End Table with stripped rows -->
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
 
         </div>

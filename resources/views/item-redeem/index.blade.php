@@ -41,7 +41,7 @@
 
 
             <!-- Table with stripped rows -->
-            <table class="table datatable table-hover ">
+            <table id="datatable" class="table text-center table-bordered dt-responsive nowrap mt-2" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
               <thead >
                 <tr>
                     <th>No</th>

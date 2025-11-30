@@ -86,7 +86,7 @@
                         <div class="my-4 ">
                             <p class="text-muted"></p>
                             <!-- Large modal -->
-                            <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg">Edit Profile</button>
+                            <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg">Edit Item</button>
                         </div>
 
                     </div>
@@ -167,7 +167,11 @@
                         
                     </form>
 
-
+                    <form id="item_delete" onsubmit="confirmAndSubmit(this)" action="{{route('item.redeem.delete')}}" method="post">
+                        @csrf
+                        <input type="hidden" name="id" value="{{$item->id}}">
+                        
+                    </form>
 
 
                         <div class="form-group mb-3 text-center row mt-3 pt-1">
@@ -175,6 +179,7 @@
                                 <button form="submit_profile" class="btn btn-info w-100 waves-effect waves-light" type="submit">Submit</button>
                                 
                                 <button form="item_status" type="submit"  class="btn btn-info w-100 waves-effect waves-light mt-2">Status</button>
+                                <button form="item_delete" type="submit"  class="btn btn-danger w-100 waves-effect waves-light mt-2">Delete</button>
                                 
                             
                             </div>
