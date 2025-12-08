@@ -62,6 +62,10 @@ class ItemController extends Controller
         $item->price = $validated['price'];
         $item->description = $validated['description'];
         $item->category = $validated['category'];
+        if($validated['category'] == false )
+        {
+            $item->quantity = 1;
+        }
         $item->save();
 
         activity_log::addActivity(' add new item '.$validated['item'].'into system');

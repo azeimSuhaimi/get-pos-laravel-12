@@ -15,6 +15,7 @@ use App\Http\Controllers\customerOrderController;
 use App\Http\Controllers\customerController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\ItemRedeemController;
+use App\Http\Controllers\PosController;
 
 use App\Models\User;
 
@@ -181,6 +182,29 @@ Route::controller(ItemRedeemController::class)->group(function () {
     Route::post('/item.redeem_redeen','redeen')->name('item.redeem.redeen')->middleware(['auth']);
     //::post('/reset_password_employee','reset_password_employee')->name('employee.reset.password')->middleware(['auth']);
 });
+
+
+Route::controller(posController::class)->group(function () {
+
+    Route::get('/pos','index')->name('pos')->middleware(['auth','verified']);
+    Route::post('/pos_add_item','addItem')->name('pos.add.item')->middleware(['auth']);
+    Route::post('/pos_update_quantity','updateQuantity')->name('pos.update.quantity')->middleware(['auth']);
+    Route::post('/pos_update_price','updatePrice')->name('pos.update.price')->middleware(['auth']);
+    Route::post('/pos_remove_item','itemRemove')->name('pos.remove.item')->middleware(['auth']);
+    Route::post('/pos_remove_all','removeAll')->name('pos.remove.all')->middleware(['auth']);
+    Route::post('/pos_suspend','suspend')->name('pos.suspend')->middleware(['auth']);
+    Route::get('/pos_suspend_view','suspend_view')->name('pos.suspend.list')->middleware(['auth']);
+    Route::post('/pos_unsuspend','unsuspend')->name('pos.unsuspend')->middleware(['auth']);
+
+    Route::get('/pos/search/member','search_member')->name('pos.search.member')->middleware(['auth','verified']);
+    Route::post('/pos/add/member','add_member')->name('pos.add.member')->middleware(['auth','verified']);
+
+    Route::post('/pos_update_remark','updateRemark')->name('pos.update.remark')->middleware(['auth']);
+
+    Route::get('/pos/quick/order/page','quick_order_page')->name('pos.quick.order.page')->middleware(['auth','verified']);
+    Route::post('/pos/quick/order','quick_order')->name('pos.quick.order')->middleware(['auth','verified']);
+
+});//end group
 
 
 

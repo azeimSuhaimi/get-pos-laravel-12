@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class suspend_detail extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory;
     protected $table = 'suspend_details';
     protected $primaryKey = 'id';
     protected $keyType = 'string';

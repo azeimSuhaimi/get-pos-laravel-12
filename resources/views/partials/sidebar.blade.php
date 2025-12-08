@@ -25,6 +25,13 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
+                                                                
+                <li>
+                    <a href="{{route('pos')}}" class=" waves-effect">
+                        <i class="ri-dashboard-line"></i>
+                        <span>P.O.S</span>
+                    </a>
+                </li>
                 
                 <li>
                     <a href="{{route('item')}}" class=" waves-effect">
