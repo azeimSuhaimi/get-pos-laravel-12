@@ -187,6 +187,32 @@ class ItemController extends Controller
 
     }//end method update 
 
+    public function updateDiscount(Request $request)
+    {
+        $item_id = $request->input('id');
+
+        $rules = [
+            'id' => 'required',
+            'expired_date' => 'required|date',
+            'discount' => 'required|integer',
+        ];
+
+        $validated = $request->validate($rules);
+
+        //dd($validated);
+
+        $item = item::find($validated['id']);
+        $item->expired_date = $validated['expired_date'];
+        $item->discount = $validated['discount'];
+
+        $item->save();
+        activity_log::addActivity( 'update discount '.$item->item.' '.$item->discount);
+
+        // --- 7. Redirect with Success Message ---
+        return redirect(route('item.view').'?id='.$validated['id'])->with('success', 'Discount updated successfully!');
+
+    }//end method update 
+
     public function status(Request $request)
     {
         $validated = $request->validate([

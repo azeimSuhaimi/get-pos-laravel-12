@@ -101,8 +101,13 @@
 
                                     
                                     <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">Discout</div>
+                                    <div class="col-lg-3 col-md-4 label">Discount</div>
                                     <div class="col-lg-9 col-md-8">{{$item->discount}}%</div>
+                                    </div>
+
+                                    <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Discount Expired</div>
+                                    <div class="col-lg-9 col-md-8">{{$item->expired_date}}</div>
                                     </div>
 
                                     
@@ -123,7 +128,9 @@
                         <div class="my-4 ">
                             <p class="text-muted"></p>
                             <!-- Large modal -->
-                            <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg">Edit Profile</button>
+                            <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg">Edit Details</button>
+
+                            <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg-discount">Edit Discount</button>
                         </div>
 
                     </div>
@@ -296,6 +303,62 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+
+
+    <!--  Modal content for the above discount -->
+    <div class="modal fade bs-example-modal-lg-discount" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabelDiscount" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myLargeModalLabelDiscount">Edit Discount</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!--  Form -->
+                    <form method="POST" onsubmit="confirmAndSubmit(this)" action="{{route('item.update.discount.')}}" >
+
+                        @csrf
+                        <input type="hidden" name="id" value="{{$item->id}}">
+                        
+
+                        <div class="row mb-3">
+                            <label for="discount" class="col-md-4 col-lg-3 col-form-label">Discount %</label>
+                            <div class="col-md-8 col-lg-9">
+                            <input name="discount" type="text" class="form-control @error('discount') is-invalid @enderror" value="{{ $item->discount }}" id="discount" placeholder="">
+                            @error('discount')
+                                <span class=" invalid-feedback mt-2">{{ $message }}</span>
+                            @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="expired_date" class="col-md-4 col-lg-3 col-form-label">Discount Expired</label>
+                            <div class="col-md-8 col-lg-9">
+                            <input name="expired_date" type="date" class="form-control @error('expired_date') is-invalid @enderror" value="{{ $item->expired_date }}" id="expired_date" placeholder="">
+                            @error('expired_date')
+                                <span class=" invalid-feedback mt-2">{{ $message }}</span>
+                            @enderror
+                            </div>
+                        </div>
+
+                        <button class="btn btn-info w-100 waves-effect waves-light" type="submit">Submit</button>
+                    </form><!-- End  Form -->
+
+
+
+
+                        <div class="form-group mb-3 text-center row mt-3 pt-1">
+                            <div class="col-12">
+
+                            
+                            </div>
+                        </div>
+
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
 </div>
 
 

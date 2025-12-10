@@ -23,6 +23,7 @@ return new class extends Migration
             $table->double('cost');
             $table->double('price');
             $table->integer('discount')->default(0);
+            $table->date('expired_date')->nullable();
             $table->boolean('quickorder_status')->default(true);
             $table->softDeletes();
             $table->timestamps();

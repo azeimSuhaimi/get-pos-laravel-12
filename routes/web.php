@@ -101,7 +101,7 @@ Route::controller(ItemController::class)->group(function () {
     Route::get('/item-view','view')->name('item.view')->middleware(['auth']);
     Route::post('/item-update','update')->name('item.update.')->middleware(['auth','is_admin']);
     Route::post('/item-remove-image','removeImage')->name('item.remove.image')->middleware(['auth','is_admin']);
-
+    Route::post('/item-update-discount','updateDiscount')->name('item.update.discount.')->middleware(['auth','is_admin']);
     Route::post('/item-status','status')->name('item.status')->middleware(['auth','is_admin']);
     Route::post('/item-status-quick','statusQuick')->name('item.status.quick')->middleware(['auth','is_admin']);
 
