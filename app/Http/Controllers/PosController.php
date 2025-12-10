@@ -20,6 +20,13 @@ class PosController extends Controller
 {
     public function index()
     {
+
+        $deletedCount = suspend::where('created_at', '<', Carbon::today())->delete();
+        $deletedCountDetails = suspend_detail::where('created_at', '<', Carbon::today())->delete();
+        $updatedCount = item::where('expired_date', '<=', Carbon::today())
+                            ->update(['discount' => 0]);
+
+
         $customer = customer::all();
         $item = item::all(); // get all items list
         $suspend = suspend::all();// get all suspend list
@@ -94,8 +101,6 @@ class PosController extends Controller
         return redirect()->back()->with('error', 'Item added have a problem.');
 
     }//emd method update quantity
-    
-
     
     //update price items selected in cart
     public function updatePrice(Request $request)

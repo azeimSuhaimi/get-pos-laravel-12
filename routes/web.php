@@ -22,7 +22,7 @@ use App\Models\User;
 Route::controller(AuthController::class)->group(function () {
 
     Route::get('/','index')->name('login')->middleware('guest');
-    Route::post('/auth','authenticate')->name('auth.login')->middleware(['guest']);
+    Route::post('/auth','authenticate')->name('auth.login')->middleware(['guest','throttle:login']);
 
     Route::get('/logout','logout')->name('auth.logout');
 
