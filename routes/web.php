@@ -193,13 +193,14 @@ Route::controller(posController::class)->group(function () {
     Route::post('/pos_remove_item','itemRemove')->name('pos.remove.item')->middleware(['auth']);
     Route::post('/pos_remove_all','removeAll')->name('pos.remove.all')->middleware(['auth']);
     Route::post('/pos_suspend','suspend')->name('pos.suspend')->middleware(['auth']);
-    Route::get('/pos_suspend_view','suspend_view')->name('pos.suspend.list')->middleware(['auth']);
+    Route::get('/pos_suspend_view','suspendView')->name('pos.suspend.list')->middleware(['auth']);
     Route::post('/pos_unsuspend','unsuspend')->name('pos.unsuspend')->middleware(['auth']);
 
-    Route::get('/pos/search/member','search_member')->name('pos.search.member')->middleware(['auth','verified']);
-    Route::post('/pos/add/member','add_member')->name('pos.add.member')->middleware(['auth','verified']);
+    Route::post('/pos/add/member','addMember')->name('pos.add.member')->middleware(['auth','verified']);
 
     Route::post('/pos_update_remark','updateRemark')->name('pos.update.remark')->middleware(['auth']);
+
+    Route::post('/pos_update_discount','updateDiscount')->name('pos.update.discount')->middleware(['auth']);
 
     Route::get('/pos/quick/order/page','quick_order_page')->name('pos.quick.order.page')->middleware(['auth','verified']);
     Route::post('/pos/quick/order','quick_order')->name('pos.quick.order')->middleware(['auth','verified']);

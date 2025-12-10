@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
 use App\Models\item;
 use App\Models\suspend;
-use App\Models\suspend_details;
+use App\Models\suspend_detail;
 use App\Models\activity_log;
 use App\Models\customer;
 use Illuminate\Support\Carbon;
@@ -67,22 +68,6 @@ class PosController extends Controller
         return redirect()->back();
 
     }//end method add item
-
-    public function update_quantity_page(Request $request)
-    {
-        // check id input exist
-        $validated = $request->validate([
-    
-            'rowid' => 'required',  // Ensure rowid exists in the cart
-        ]);
-
-        $data = [
-            
-            'rowid' => cart::get($validated['rowid']),
-        ];
-
-        
-    }//end method
 
     //update quantity items selected in cart
     public function updateQuantity(Request $request)
@@ -167,6 +152,53 @@ class PosController extends Controller
         return redirect(route('pos'))->with('success', ' new sale created.');
     }//end method
 
+        // suspend all items select in cart 
+    public function suspend(Request $request)
+    {
+        // check in cart exist or not
+        if($request->input('qty') > 0)//enter not less zero
+        {
+            
+            $bill_id = Carbon::now()->timestamp; // get timestamp for bill id
+
+            // store data in suspend bill
+            $suspend = new suspend;
+            $suspend->bill_id = $bill_id;
+            $suspend->cust_id = session('cust_id');
+            $suspend->total = Cart::total();
+            $suspend->save();
+
+            // store list items in suspend bill
+            foreach(Cart::content() as $row)
+            {
+                $suspend_detail = new suspend_detail;
+                $suspend_detail->bill_id = $bill_id;
+                $suspend_detail->shortcode = $row->id;
+                $suspend_detail->item = $row->name;
+                $suspend_detail->quantity = $row->qty;
+                $suspend_detail->price = $row->price;
+                $suspend_detail->cost = $row->options->cost;
+                $suspend_detail->discount = $row->options->discount;
+                $suspend_detail->description = $row->options->description;
+                $suspend_detail->category = $row->options->category;
+                $suspend_detail->remark = $row->options->remark;
+                $suspend_detail->suspend_id = $suspend->id;
+                $suspend_detail->save();
+            }
+
+            Cart::destroy(); // remove all items in cart
+
+            $request->session()->forget('cust_id');
+            $request->session()->forget('cust_name');
+            $request->session()->forget('cust_phone');
+            $request->session()->forget('cust_email');
+    
+
+            return redirect()->back()->with('success', 'item suspend now!!!');
+        }
+        return redirect()->back()->with('error', 'item cannot empty  to suspend!!!');
+    }//end method
+
         // view list suspend bill 
     public function suspendView(Request $request)
     {
@@ -209,7 +241,7 @@ class PosController extends Controller
         ]);
 
         $suspend = suspend::find($validated['id']); // find suspend bill based id 
-        $suspend_details = suspend_details::where('bill_id',$suspend->bill_id)->get();// get list items on suspend bill 
+        $suspend_details = suspend_detail::where('suspend_id',$suspend->id)->get();// get list items on suspend bill 
 
         // remove first cart if have before restore suspend
         Cart::destroy();
@@ -226,10 +258,22 @@ class PosController extends Controller
             ];
 
             //add to cart
-            Cart::add($row->shortcode, $row->name, $row->quantity, $row->price,$data);
+            Cart::add($row->shortcode, $row->item, $row->quantity, $row->price,$data);
 
             $row->delete(); // delete item in suspend table
         }
+
+        if($suspend->cust_id)
+        {
+
+            $cust = DB::table('customers')->where('id',$suspend->cust_id)->first();
+    
+            $request->session()->put('cust_id', $cust->id);
+            $request->session()->put('cust_name', $cust->name);
+            $request->session()->put('cust_phone', $cust->phone);
+            $request->session()->put('cust_email', $cust->email);
+        }
+
 
         $suspend->delete(); // deldete bill in suspend table
         
@@ -237,8 +281,6 @@ class PosController extends Controller
         return redirect(route('pos'));
 
     }//end method
-
-
 
     public function updateRemark(Request $request)
     {
@@ -277,6 +319,50 @@ class PosController extends Controller
 
         return redirect(route('pos'))->with('success', 'remark add to items');
     }//end method
+
+    public function updateDiscount(Request $request)
+    {
+        $validated = $request->validate([
+    
+            'rowid' => 'required',  // Ensure rowid exists in the cart
+            'remark' => 'nullable',           // Validate remark
+            'cost' => 'required',                    // Validate cost
+            'description' => 'nullable',      // Validate description
+            'category' => 'required',        // Validate category
+            'discount' => 'required',
+        ]);
+        
+        // Get the current cart item
+        $cartItem = Cart::get($validated['rowid']);
+        
+        if (!$cartItem) {
+            return redirect()->back()->with('error', 'Item not found in cart.');
+        }
+
+        if ($cartItem->options->discount > 0) {
+            return redirect()->back()->with('error', 'Item already discount in cart.');
+        }
+
+        // Merge the updated fields into the current options
+        $updatedOptions =  [
+            'remark' => $validated['remark'],
+            'cost' => $validated['cost'],
+            'description' => $validated['description'],
+            'category' => $validated['category'],
+            'discount' => $validated['discount'],
+        ];
+
+        // Update the cart item with the merged options
+        Cart::update($validated['rowid'], 
+        ['price' => calculateDiscount($cartItem->price,$validated['discount'])], [
+            'options' => $updatedOptions
+        ]);
+
+        Cart::update($validated['rowid'],['options' => $updatedOptions]);
+
+        return redirect(route('pos'))->with('success', ' add discount to items ');
+    }//end method
+
 
     public function quickOrderPage(Request $request)
     {

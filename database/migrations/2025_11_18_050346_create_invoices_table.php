@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->integer('daily_unique_number')->default(0);
             $table->unsignedBigInteger('cust_id')->nullable();
-            $table->foreign('cust_id')->references('id')->on('customers')->onDelete('cascade');;
+            $table->foreign('cust_id')->references('id')->on('customers')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

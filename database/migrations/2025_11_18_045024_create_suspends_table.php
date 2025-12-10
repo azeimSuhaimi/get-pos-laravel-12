@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('bill_id');
             $table->double('total');
+            $table->unsignedBigInteger('cust_id')->nullable();
+            $table->foreign('cust_id')->references('id')->on('customers')->onDelete('cascade');
             $table->timestamps();
         });
     }

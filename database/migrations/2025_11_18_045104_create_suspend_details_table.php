@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->string('category');
             $table->text('remark')->nullable();
+            $table->unsignedBigInteger('suspend_id')->nullable();
+            $table->foreign('suspend_id')->references('id')->on('suspends')->onDelete('cascade');
             $table->timestamps();
         });
     }

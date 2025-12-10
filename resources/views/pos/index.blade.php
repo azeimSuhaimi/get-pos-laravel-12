@@ -25,7 +25,7 @@
 <!-- end page title -->
 
 
-  <div class="card mb-4">
+<div class="card mb-4">
     <div class="card-header">
         <i class="fas fa-table me-1"></i>
         
@@ -149,13 +149,11 @@
                 </div><!-- /.modal-dialog -->
             </div><!-- /.modal -->
 
-
-
-          <form class="text-end" autocomplete="off" action="{{route('pos.add.item')}}" method="post">
-            @csrf
-            <input class="  @error('category') is-invalid @enderror" type="text" value="{{  old('shortcode') }}" name="shortcode" placeholder="enter shortcode">
-            <button class="btn btn-primary" type="submit">add</button>
-          </form>
+            <form class="text-end" autocomplete="off" action="{{route('pos.add.item')}}" method="post">
+                @csrf
+                <input class="  @error('category') is-invalid @enderror" type="text" value="{{  old('shortcode') }}" name="shortcode" placeholder="enter shortcode">
+                <button class="btn btn-primary" type="submit">add</button>
+            </form>
         </div>
     </div>
 
@@ -219,6 +217,15 @@
                                         data-discount="{{$row->options->discount}}"
                                         
                                         ></button>
+
+                                        <button type="button" class="btn btn-warning waves-effect waves-light open-discount-modal" data-bs-toggle="modal" data-bs-target="#modalTypeD" data-id="{{$row->id}}" data-rowiddiscount="{{$row->rowId}}" data-current-remarkdiscount="{{$row->options->remark}}"
+                                        
+                                        data-descriptiondiscount="{{$row->options->description}}"
+                                        data-costdiscount="{{$row->options->cost}}"
+                                        data-categorydiscount="{{$row->options->category}}"
+                                        data-discountdiscount="{{$row->options->discount}}"
+                                        
+                                        ></button>
                                     
                                     <form onsubmit="confirmAndSubmit(this)" action="{{route('pos.remove.item')}}" method="post">
                                         @csrf
@@ -254,7 +261,7 @@
                 <tr>
                     <th colspan="6">&nbsp;</th>
                     <th>Tax</th>
-                    <th><?php echo round(Cart::tax() * 20) / 20; ?></td>
+                    <th>{{roundedValue(Cart::tax())}}</td>
                 </tr>
                 <tr>
                     <th colspan="6">&nbsp;</th>
@@ -263,7 +270,7 @@
                         <form class="mt-2 p-2"  action="" method="get">
                             @csrf
                             <div class=" mt-2">
-                                <button class="{{Cart::total() <= 0 ? 'disabled':''}} btn btn-primary " type="submit"><?php echo round(Cart::total() * 20) / 20; ?></button>
+                                <button class="{{Cart::total() <= 0 ? 'disabled':''}} btn btn-primary " type="submit">{{roundedValue(Cart::total())}}</button>
                             </div>
                         </form>
                     </th>
@@ -404,6 +411,56 @@
             });
         </script>
 
+        <!-- update discount modal-->
+        <div class="modal fade" id="modalTypeD" tabindex="-1" role="dialog" aria-labelledby="modalTypeDLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTypeDLabel">Modal Jenis A: Pendaftaran Pengguna</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form onsubmit="confirmAndSubmit(this)" action="{{route('pos.update.discount')}}" method="post">
+                            @csrf
+                            <input type="hidden" id="rowIdDiscount" name="rowid" value="">
+                            <input type="hidden" id="descriptionDiscount"name="description"  value="">
+                            <input type="hidden" id="costDiscount" name="cost"  value="">
+                            <input type="hidden" id="categoryDiscount" name="category"  value="">
+                            <input type="hidden"  id="currentRemarkDiscount" name="remark" value="">
+                            <input type="text" id="discountDiscount"class="form-control" name="discount"  value="">
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $(document).ready(function() {
+
+                $('.open-discount-modal').on('click', function() {   
+                    var itemId = $(this).data('id');
+                    var currentRemark = $(this).data('current-remarkdiscount'); 
+                    var rowId = $(this).data('rowiddiscount');       
+                    var description = $(this).data('descriptiondiscount');
+                    var cost = $(this).data('costdiscount'); 
+                    var category = $(this).data('categorydiscount'); 
+                    var discount = $(this).data('discountdiscount');  
+                    
+                    $('#modalTypeDLabel').text('Update Discount Row: ' + itemId);
+                    $('#rowIdDiscount').val(rowId);
+                    $('#currentRemarkDiscount').val(currentRemark);
+                    $('#descriptionDiscount').val(description);
+                    $('#costDiscount').val(cost);
+                    $('#categoryDiscount').val(category);
+                    $('#discountDiscount').val(discount);
+
+                    $('.bs-example-modal-center').modal('show'); 
+                });
+                
+            });
+        </script>
+
         <?php 
             $number = 7.26;
 
@@ -457,12 +514,6 @@
                   </form>
         </div>
         
-
-
-
-
-
-
 
     </div>
 </div>
@@ -543,14 +594,22 @@
     });//end keydown
 
 
-
-
     document.addEventListener('keydown', function(event) {
         if (event.key === 'F8') {
             event.preventDefault();
             
             // Place your custom code here
-            document.getElementById('search_page').submit();
+            $('.bs-example-modal-xl').modal('show');
+
+        }//end if condition
+    });//end keydown
+
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'F9') {
+            event.preventDefault();
+            
+            // Place your custom code here
+            $('.searching-member').modal('show');
 
         }//end if condition
     });//end keydown

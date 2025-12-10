@@ -35,7 +35,7 @@ class AuthController extends Controller
             'remember_token' => ['nullable'],
         ]);
 
-        if (Auth::attempt($credentials)) 
+        if (Auth::attempt($credentials,$credentials)) 
         {
             user::updateLastLogin($credentials['email']);
 
