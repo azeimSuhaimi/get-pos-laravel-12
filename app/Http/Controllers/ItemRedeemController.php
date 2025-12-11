@@ -8,6 +8,7 @@ use App\Models\item_redeem;
 use App\Models\customer;
 use App\Models\customer_item_redeem;
 use Illuminate\Validation\Rule;
+use App\Notifications\customerRedeem;
 
 class ItemRedeemController extends Controller
 {
@@ -185,6 +186,8 @@ class ItemRedeemController extends Controller
 
         $customer->point = $customer->point - $items->point;
         $customer->save();
+
+        $customer->notify(new customerRedeem($customer));
 
         activity_log::addActivity(' redeem item '.$items->name.' customer '.$customer->name.'');
 
